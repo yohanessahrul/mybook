@@ -7,6 +7,7 @@ module.exports = {
   statusById: (req, res) => {
     Status.findById({_id: req.params.id})
       .populate('userId')
+      .populate('commentId')
       .then(response => {
         res.status(200).json({
           info: 'Get status by ID succes !!',
@@ -44,7 +45,7 @@ module.exports = {
   },
   createStatus: (req, res) => {
     let decoded = jwt.verify(req.headers.token, 'yosaru');
-    console.log('ID => ', decoded.id)
+    // console.log('ID => ', decoded.id)
     
     // add to statuses DB
     let newStatus = new Status({
@@ -58,16 +59,15 @@ module.exports = {
           $push: { statuses: response._id }
         })
           .then(responsePush => {
-            console.log(responsePush)
+            res.status(201).json({
+              info: 'Create status success !!',
+              data: response
+            })
           })
           .catch(err => {
             console.log(err)
           })
         
-        res.status(200).json({
-          info: 'Create status success !!',
-          data: response
-        })
       })
       .catch(err => {
         console.log(err)

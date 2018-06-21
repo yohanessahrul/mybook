@@ -8,7 +8,7 @@ const {
     statusList,
     allStatusByUserId,
     deleteStatusByUserId,
-} = require('../controllers/c_statuses')
+} = require('../controllers/c_statuses');
 
 /* GET statuses listing. */
 router.get('/allusers', cekToken, statusList); // status all users
