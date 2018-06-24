@@ -5,7 +5,7 @@ const {
   createComment,
   readAllUsersComments,
   deleteCommentById,
-} = require('../controllers/c_comments')
+} = require('../controllers/c_comments');
 
 router.get('/', (req, res) => {
   res.status(200).json({

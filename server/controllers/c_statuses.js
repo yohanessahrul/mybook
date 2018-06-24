@@ -21,6 +21,7 @@ module.exports = {
   statusList: (req, res) => {
     Status.find()
       .populate('userId')
+      .populate('commentId')
       .then(response => {
         res.status(200).json({
           info: 'Get all status success !!',

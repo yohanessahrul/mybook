@@ -13,12 +13,23 @@ mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds2636
   }
 });
 
+const fs = require('fs');
+const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
+const { makeExecutableSchema } = require('graphql-tools');
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var statusesRouter = require('./routes/statuses');
 var commentsRouter = require('./routes/comments');
 
 var app = express();
+
+const typeDef = fs.readFileSync('./graphql/typedefs.gql', 'utf8');
+const resolver = require('./graphql/resolver');
+const schemas = makeExecutableSchema({
+  typeDefs: typeDef,
+  resolvers: resolver
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -34,6 +45,9 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/statuses', statusesRouter);
 app.use('/comments', commentsRouter);
+
+app.use('/graphql', graphqlExpress({ schema: schemas }))
+app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,0 +1,30 @@
+type Query {
+  users: [User]
+  statuses: [Status]
+  comments: [Comment]
+  timeline: [Status]
+}
+
+type User {
+  username: String
+  password: String
+  email: String
+  fullname: String
+  statuses: [Status]
+}
+
+type Status {
+  status: String
+  userId: String
+  commentId: [String]
+}
+
+type Comment {
+  comment: String
+  statusId: String
+}
+
+type Mutation {
+  login(email: String, password: String): String
+  register(username: String, password: String, email: String, fullname: String): String
+}
