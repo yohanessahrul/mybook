@@ -5,6 +5,10 @@ const resolvers = {
     users: async () => {
       try {
         let userData = await axios.get(`http://localhost:3000/users/all`);
+        if (userData.data.data) {
+          console.log('Data users berhasil didapatkan')
+        }
+        console.log('users ==>',userData.data.data)
         return userData.data.data
       }
       catch(err) {
@@ -16,10 +20,26 @@ const resolvers = {
         let statusesData = await axios.get(`http://localhost:3000/statuses/allusers`, {
           headers: { token: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjViMmEyYjljYjk1NDYwN2E4YzYwMzBkNiIsImVtYWlsIjoieW9zYUBnbWFpbC5jb20iLCJpYXQiOjE1Mjk0OTM0NTV9.2tivadgSeZxqvNVnne1hMbaaXjxHueYWSAj0ccnfUmg` }
         })
-        console.log('====>', statusesData.data.data[0].commentId)
+        if (statusesData.data.data) {
+          console.log('Data statuses berhasil didapatkan')
+        }
+        console.log('statuses ==>', statusesData.data.data)
         return statusesData.data.data
       }
       catch(err) {
+        console.log(err)
+      }
+    },
+    comments: async () => {
+      try {
+        let commentData = await axios.get(`http://localhost:3000/comments/all`)
+        if (commentData.data.data) {
+          console.log('Data comments berhasil didapatkan')
+        }
+        console.log('comments ==>', commentData.data.data)
+        return commentData.data.data
+      }
+      catch(err){
         console.log(err)
       }
     },
@@ -28,7 +48,10 @@ const resolvers = {
         let timelineData = await axios.get(`http://localhost:3000/statuses/allusers`, {
           headers: { token: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjViMmEyYjljYjk1NDYwN2E4YzYwMzBkNiIsImVtYWlsIjoieW9zYUBnbWFpbC5jb20iLCJpYXQiOjE1Mjk0OTM0NTV9.2tivadgSeZxqvNVnne1hMbaaXjxHueYWSAj0ccnfUmg` }
         })
-        console.log('Data timeline===>', timelineData.data.data)
+        if (timelineData.data.data) {
+          console.log('Data timeline berhasil didapatkan')
+        }
+        console.log('timeline ==>', timelineData.data.data)
         return timelineData.data.data
       }
       catch(err) {
@@ -43,7 +66,7 @@ const resolvers = {
           email,
           password
         }, {})
-        console.log('===>', loginData.data.data)
+        console.log('login ==>', loginData.data.data)
         return loginData.data.data
       }
       catch(err) {
@@ -58,7 +81,7 @@ const resolvers = {
           email,
           fullname
         })
-        console.log('register ===>', registerData.data)
+        console.log('register ==>', registerData.data)
         return registerData.data
       }
       catch(err) {

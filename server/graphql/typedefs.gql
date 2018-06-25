@@ -15,7 +15,7 @@ type User {
 
 type Status {
   status: String
-  userId: String
+  userId: User
   commentId: [String]
 }
 

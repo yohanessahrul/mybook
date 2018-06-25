@@ -6,14 +6,11 @@ class headers extends Component {
 
     render() {
         return (
-            <Header>
+            <Header noLeft>
                 <Left>
-                    <Button transparent>
-                        <Icon name='arrow-back' />
-                    </Button>
                 </Left>
                 <Body>
-                    <Title>Header</Title>
+                    <Title>{this.props.title}</Title>
                 </Body>
                 <Right>
                     <Button transparent>

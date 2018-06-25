@@ -31,17 +31,17 @@ class HomeScreen extends Component {
                 <Headers/>
                 <Content style={styles.pad10}>
                     <Button
-                      onPress={() => this.props.navigation.push('Login')}
+                      onPress={() => this.props.navigation.navigate('Login')}
                       block style={styles.btn}>
                         <Text>To Login</Text>
                     </Button>
                     <Button
-                      onPress={() => this.props.navigation.push('Register')}
+                      onPress={() => this.props.navigation.navigate('Register')}
                       block success style={styles.btn}>
                         <Text>To Register</Text>
                     </Button>
                     <Button
-                      onPress={() => this.props.navigation.push('Main')}
+                      onPress={() => this.props.navigation.navigate('Main')}
                       block warning style={styles.btn}>
                         <Text>To Main Screen</Text>
                     </Button>

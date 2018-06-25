@@ -4,6 +4,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var cors = require('cors');
 var mongoose = require('mongoose');
 mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds263670.mlab.com:63670/fb_users`, (err) => {
   if (err) {
@@ -36,6 +37,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
