@@ -33,7 +33,7 @@ class MainScreen extends Component {
                 <View style={styles.statusBar} />
                 <Headers title={"Pacebuk"}/>
                 <Content style={styles.pad10}>
-                    <Status/>
+                    <Status navigation={this.props.navigation}/>
                 </Content>
                 <FootersTab navigation={this.props.navigation}/>
             </Container>

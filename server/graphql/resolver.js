@@ -66,8 +66,8 @@ const resolvers = {
           email,
           password
         }, {})
-        console.log('login ==>', loginData.data.data)
-        return loginData.data.data
+        console.log('login ==>', loginData.data.data.token)
+        return loginData.data.data.token
       }
       catch(err) {
         console.log(err)

@@ -3,6 +3,7 @@ import {
   StyleSheet,
   Text,
   View,
+  AsyncStorage,
 } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import HomeScreen from './pages/HomeScreen';
@@ -11,6 +12,7 @@ import RegisterScreen from './pages/RegisterScreen';
 import MainScreen from './pages/MainScreen';
 import ProfileScreen from './pages/ProfileScreen';
 import FriendScreen from './pages/FriendScreen';
+import DetailStatusScreen from './pages/DetailStatusScreen';
 
 import { ApolloClient } from "apollo-client";
 import { ApolloLink } from 'apollo-link';
@@ -20,17 +22,17 @@ import { ApolloProvider } from 'react-apollo';
 
 const RootStack = createStackNavigator({
   Home: {
-    screen: HomeScreen,
-    navigationOptions: {
-      header: null
-    }
-  },
-  Login: {
     screen: LoginScreen,
     navigationOptions: {
       header: null
     }
   },
+  // Login: {
+  //   screen: LoginScreen,
+  //   navigationOptions: {
+  //     header: null
+  //   }
+  // },
   Register: {
     screen: RegisterScreen,
     navigationOptions: {
@@ -54,6 +56,12 @@ const RootStack = createStackNavigator({
     navigationOptions: {
       header: null
     }
+  },
+  DetailStatus: {
+    screen: DetailStatusScreen,
+    navigationOptions: {
+      header: null
+    }
   }
 }, {
   initialRouteName: 'Home',
@@ -61,11 +69,24 @@ const RootStack = createStackNavigator({
 });
 
 const client = new ApolloClient({
-  link: new HttpLink({ uri: "http://35.240.204.81:3000/graphql" }),
+  link: new HttpLink({ uri: "http://35.240.251.226:3000/graphql" }),
   cache: new InMemoryCache()
 })
 
 export default class App extends React.Component {
+  constructor() {
+    super()
+    this.state ={
+      token: null
+    }
+  }
+
+  async componentDidMount() {
+    const token = await AsyncStorage.getItem('token')
+    this.setState({token})
+    console.log('===============>', token)
+  }
+
   render() {
     return (
       <ApolloProvider client={client}>
